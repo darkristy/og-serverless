@@ -4,6 +4,7 @@ interface ParsedReqs {
   title: string | string[] | undefined;
   website: string | string[] | undefined;
   image: string | string[] | undefined;
+  handle: string | string[] | undefined;
 }
 
 declare module 'puppeteer-core';

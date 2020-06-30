@@ -1,7 +1,7 @@
 import chrome from 'chrome-aws-lambda';
 import { launch } from 'puppeteer-core';
 
-const exePath = 'usr/bin/google-chrome';
+const exePath = 'usr/bin/google-chrome-stable';
 
 interface Options {
   args: string[];

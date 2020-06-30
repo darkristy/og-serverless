@@ -102,12 +102,17 @@ body {
   padding: 40px;
   font-size: 2em;
   color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+.handle {
+  padding-bottom: 20px;
 }
   `;
 };
 
 const getHtml = (parsedReqs: ParsedReqs) => {
-  const { author, title, website, image } = parsedReqs;
+  const { author, title, website, image, handle } = parsedReqs;
 
   return `
     <!DOCTYPE html>
@@ -131,7 +136,13 @@ const getHtml = (parsedReqs: ParsedReqs) => {
             <img src="${image}" class="author-image" />
             <h4 class="author-name">${author}</h4>
           </div>
-          <div class="website">${website}</div>
+          <div class="website">
+          <div class="handle">
+          ${handle}
+          </div>
+          
+          ${website}
+          </div>
         </div>
       </body>
     </html>
