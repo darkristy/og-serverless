@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 interface ParsedReqs {
-  author: string;
-  title: string;
-  website: string;
-  image: string;
+  author: string | string[] | undefined;
+  title: string | string[] | undefined;
+  website: string | string[] | undefined;
+  image: string | string[] | undefined;
 }
 
 declare module 'puppeteer-core';

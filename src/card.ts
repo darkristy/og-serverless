@@ -1,33 +1,31 @@
-/* eslint-disable no-console */
 import { IncomingMessage, ServerResponse } from 'http';
 
-const handler = async (_req: IncomingMessage, res: ServerResponse) => {
+import parseReqs from './parser';
+import getHtml from './template';
+import writeTempFile from './file';
+import getScreenShot from './chromium';
+
+const isDev = process.env.NOW_REGION === 'dev1';
+
+const handler = async (req: IncomingMessage, res: ServerResponse) => {
   try {
-    const html = `
-    <!DOCTYPE html>
-  <html>
-    <meta charset="utf-8">
-    <title>Generated Image</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Barlow+Condensed&display=swap" rel="stylesheet">
-    <style>
-     
-    </style>
-    <body>
-      <div class="container">
-        <div class="title">Hello World</div>
-        <div class="author">
-          <img src="" class="author-image" />
-          Kahlil Whitfield
-        </div>
-        <div class="website">http</div>
-      </div>
-    </body>
-  </html>
-    `;
+    const parsedReqs = parseReqs(req);
+    const html = getHtml(parsedReqs);
+
+    const { title, author } = parsedReqs;
+    const fileName = [title, author].join('-');
+    const filePath = await writeTempFile(fileName, html);
+    const fileUrl = `file://${filePath}`;
+
+    const file = await getScreenShot(fileUrl, isDev);
+
     res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/html');
-    res.end(html);
+    res.setHeader('Content-Type', 'image/jpeg');
+    res.setHeader(
+      'Cache-Control',
+      'public,immutable, no-transform,s-max-age=21600,max-age=21600',
+    );
+    res.end(file);
   } catch (err) {
     res.statusCode = 500;
     res.setHeader('Content-Type', 'text/html');
