@@ -1,0 +1,22 @@
+{
+  "name": "og-serverless",
+  "version": "1.0.0",
+  "description": "using serverless function to create og images",
+  "main": "dist/card.js",
+  "repository": "git@gitlab.com:darkristy/og-serverless.git",
+  "author": "Kahlil Whitfield <darkristy2002@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "now-build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "dependencies": {
+    "chrome-aws-lambda": "^3.1.1",
+    "puppeteer-core": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.14",
+    "typescript": "^3.9.5"
+  }
+}
